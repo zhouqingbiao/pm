@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta data-th-replace="Templates :: meta">
+    <link data-th-replace="Templates :: link">
+    <title>VirtualMachineUpdate</title>
+</head>
+<body>
+<nav class="container mt-1" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Slash</a></li>
+        <li class="breadcrumb-item active"><a href="/PhysicalMachine">PhysicalMachine</a></li>
+        <li class="breadcrumb-item active" data-th-switch="${virtualMachine.physicalMachineId}">
+            <a data-th-case="null" href="/VirtualMachine/PhysicalMachineId/-1">VirtualMachine</a>
+            <a data-th-case="*" data-th-href="'/VirtualMachine/PhysicalMachineId/'+${virtualMachine.physicalMachineId}">VirtualMachine</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">VirtualMachineUpdate</li>
+    </ol>
+</nav>
+<form class="container mt-1" align="center" method="post"
+      data-th-action="'/VirtualMachine/PhysicalMachineId/Update/'+${virtualMachine.id}">
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>ID</label>
+            <input type="text" readonly class="form-control" data-th-id="${virtualMachine.id}" placeholder="ID"
+                   name="id" data-th-value="${virtualMachine.id}">
+        </div>
+        <div class="form-group col-md-3">
+            <label>COMPUTER NAME</label>
+            <input type="text" class="form-control" placeholder="COMPUTER NAME"
+                   name="computerName" data-th-value="${virtualMachine.computerName}">
+        </div>
+        <div class="form-group col-md-3">
+            <label>STATUS</label>
+            <select class="form-control" name="status">
+                <option data-th-selected="${virtualMachine.status=='已开机'}">已开机</option>
+                <option data-th-selected="${virtualMachine.status=='已关机'}">已关机</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>MAC</label>
+            <input type="text" class="form-control" placeholder="MAC" name="mac"
+                   data-th-value="${virtualMachine.mac}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>IP</label>
+            <input type="text" class="form-control" placeholder="IP"
+                   name="ip" data-th-value="${virtualMachine.ip}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>USERNAME</label>
+            <input type="text" class="form-control" placeholder="USERNAME" name="username"
+                   data-th-value="${virtualMachine.username}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>PASSWORD</label>
+            <input type="text" class="form-control" placeholder="PASSWORD" name="password"
+                   data-th-value="${virtualMachine.password}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>OPERATING SYSTEM</label>
+            <select class="form-control" name="operatingSystem">
+                <option data-th-selected="${virtualMachine.operatingSystem}=='Linux(L)'">Linux(L)</option>
+                <option data-th-selected="${virtualMachine.operatingSystem}=='Windows(W)'">Windows(W)</option>
+                <option data-th-selected="${virtualMachine.operatingSystem}=='其他'">其他</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>MTIME</label>
+            <input type="date" class="form-control" readonly placeholder="MTIME" name="mtime"
+                   data-th-value="${virtualMachine.mtime}">
+        </div>
+        <div class="form-group col-md-3">
+            <label>MAINTENANCE PERSONNEL</label>
+            <input type="text" class="form-control" placeholder="MAINTENANCE PERSONNEL" name="maintenancePersonnel"
+                   data-th-value="${virtualMachine.maintenancePersonnel}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label>DESCRIPTION</label>
+            <input type="text" class="form-control" placeholder="DESCRIPTION" name="description"
+                   data-th-value="${virtualMachine.description}">
+        </div>
+    </div>
+    <div class="form-row" data-th-if="${virtualMachine.physicalMachineId}">
+        <div class="form-group col-md-3">
+            <label>PHYSICAL MACHINE ID</label>
+            <input type="text" class="form-control" name="physicalMachineId" readonly
+                   data-th-value="${virtualMachine.physicalMachineId}">
+        </div>
+        <div class="form-group col-md-5">
+            <label>IP</label>
+            <input type="text" class="form-control" readonly data-th-value="${physicalMachine.ip}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>USERNAME</label>
+            <input type="text" class="form-control" readonly data-th-value="${physicalMachine.username}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>PASSWORD</label>
+            <input type="text" class="form-control" readonly data-th-value="${physicalMachine.password}">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">提交</button>
+</form>
+<script data-th-replace="Templates :: script"></script>
+</body>
+</html>
