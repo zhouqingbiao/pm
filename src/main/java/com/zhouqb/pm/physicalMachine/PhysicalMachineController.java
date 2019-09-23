@@ -76,6 +76,6 @@ public class PhysicalMachineController {
     public String findById(Model model, @PathVariable Long id) {
         PhysicalMachine physicalMachine = physicalMachineRepository.findById(id).get();
         model.addAttribute("physicalMachine", physicalMachine);
-        return "physicalMachineUpdate";
+        return "PhysicalMachineUpdate";
     }
 }
