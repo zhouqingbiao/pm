@@ -9,6 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/**").excludePathPatterns("/static/**","/User");
+        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/**").excludePathPatterns("/static/**", "/User");
     }
 }
