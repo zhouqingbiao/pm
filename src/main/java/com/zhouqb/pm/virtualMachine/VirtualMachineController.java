@@ -1,5 +1,6 @@
 package com.zhouqb.pm.virtualMachine;
 
+import com.zhouqb.pm.inspection.InspectionController;
 import com.zhouqb.pm.physicalMachine.PhysicalMachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,6 +19,8 @@ public class VirtualMachineController {
     private VirtualMachineRepository virtualMachineRepository;
     @Autowired
     private PhysicalMachineRepository physicalMachineRepository;
+    @Autowired
+    private InspectionController inspectionController;
 
     @GetMapping("/VirtualMachine")
     public String findByMacLikeOrIpLikeOrderById(Model model, VirtualMachine virtualMachine) {
@@ -87,6 +90,7 @@ public class VirtualMachineController {
         if (!StringUtils.isEmpty(physicalMachineId)) {
             model.addAttribute("physicalMachine", physicalMachineRepository.findById(virtualMachine.getPhysicalMachineId()).get());
         }
+        model.addAttribute("inspection", inspectionController.getInspection(null, virtualMachine.getId()));
         return "VirtualMachineUpdate";
     }
 
@@ -98,6 +102,7 @@ public class VirtualMachineController {
         if (!StringUtils.isEmpty(physicalMachineId)) {
             model.addAttribute("physicalMachine", physicalMachineRepository.findById(virtualMachine.getPhysicalMachineId()).get());
         }
+        model.addAttribute("inspection", inspectionController.getInspection(null, virtualMachine.getId()));
         return "VirtualMachineUpdate";
     }
 

@@ -21,7 +21,8 @@ public class UserInterceptor implements HandlerInterceptor {
         HttpSession httpSession = request.getSession();
         User user = (User) httpSession.getAttribute("user");
         if (ObjectUtils.isEmpty(user)) {
-            response.sendRedirect("User");
+            response.sendRedirect("/User");
+            return false;
         }
         return true;
     }

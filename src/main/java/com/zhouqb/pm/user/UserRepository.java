@@ -9,5 +9,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     @Override
     Optional<User> findById(Long id);
-    Optional<User> findByUsernameAndPassword(String username,String password);
+
+    Optional<User> findByUsernameAndPassword(String username, String password);
 }
