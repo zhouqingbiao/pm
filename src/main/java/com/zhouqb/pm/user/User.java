@@ -4,6 +4,9 @@ package com.zhouqb.pm.user;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 用户类
+ */
 @Entity
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;

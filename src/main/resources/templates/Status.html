@@ -3,12 +3,17 @@
 <head>
     <meta data-th-replace="Templates :: meta">
     <link data-th-replace="Templates :: link">
+    <!-- Seniverse -->
+    <script data-th-replace="SeniverseFDQP :: script"></script>
     <title>Status</title>
 </head>
 <body>
+<div data-th-replace="Navbar :: nav"></div>
 <p class="display-1 text-secondary" align="center"
-   data-th-text="${Status}"></p>
+   data-th-text="${status}"></p>
 <p class="display-1 text-danger" align="center">Sorry!</p>
 <script data-th-replace="Templates :: script"></script>
+<!-- Seniverse -->
+<script data-th-replace="SeniverseGDJJ :: script"></script>
 </body>
 </html>

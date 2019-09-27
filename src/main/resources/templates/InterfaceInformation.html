@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta data-th-replace="Templates :: meta">
+    <link data-th-replace="Templates :: link">
+    <title>PhysicalMachine</title>
+</head>
+<body>
+<div class="container-fluid mt-1" align="center">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Slash</a></li>
+            <li class="breadcrumb-item active" aria-current="page">PhysicalMachine</li>
+        </ol>
+    </nav>
+    <!-- 增加 -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert">增加接口信息</button>
+    <button class="btn btn-danger" data-th-text="${message}" data-th-if="${message}" disabled
+            id="message"></button>
+    <!-- 增加modal -->
+    <div class="modal fade" id="insert" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">PhysicalMachine</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="container-fluid mt-1" align="center" method="post" action="/InterfaceInformation/Save">
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label>接口URL</label>
+                                <input type="text" class="form-control" name="interfaceUrl"
+                                       placeholder="接口URL">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>网络</label>
+                                <select class="form-control" name="network">
+                                    <option>内网</option>
+                                    <option>外网</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label>描述</label>
+                                <input type="text" class="form-control" name="description" placeholder="描述">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>维护人员</label>
+                                <input type="text" class="form-control" name="maintenancePersonnel" placeholder="维护人员">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10"></div>
+                            <div class="form-group col-md-1">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <button type="submit" class="form-control btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <form class="mt-1 w-50" method="get" action="/InterfaceInformation">
+        <div class="form-row">
+            <div class="form-group col-md-3"></div>
+            <div class="form-group col-md-5">
+                <input type="text" class="form-control" name="interfaceUrl" placeholder="接口URL"
+                       data-th-value="${interfaceUrl}">
+            </div>
+            <div class="form-group col-md-1">
+                <button type="submit" class="form-control btn btn-primary">查询</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped table-bordered table-hover table-sm w-50" data-th-if="${interfaceInformation}">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">接口URL</th>
+            <th scope="col">内网外网</th>
+            <th scope="col">删除</th>
+            <th scope="col">修改</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="ii : ${interfaceInformation}">
+            <td data-th-text="${ii.interfaceUrl}"></td>
+            <td data-th-text="${ii.network}"></td>
+            <td>
+                <a class="btn btn-danger btn-sm" data-th-href="'/InterfaceInformation/Delete/'+${ii.id}"
+                   role="button" id="delete">删除</a>
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm" data-th-href="'/InterfaceInformation/Find/'+${ii.id}"
+                   role="button">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script data-th-replace="Templates :: script"></script>
+<script language="javascript">
+    $(document).ready(function () {
+        $("#delete").click(function () {
+            if (window.confirm("确认删除？")) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        $("#message").fadeOut(3000);
+    })
+</script>
+</body>
+</html>

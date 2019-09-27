@@ -22,8 +22,15 @@ public class VirtualMachineController {
     @Autowired
     private InspectionController inspectionController;
 
+    /**
+     * 查找虚拟机
+     *
+     * @param model
+     * @param virtualMachine
+     * @return
+     */
     @GetMapping("/VirtualMachine")
-    public String findByMacLikeOrIpLikeOrderById(Model model, VirtualMachine virtualMachine) {
+    public String find(Model model, VirtualMachine virtualMachine) {
         String mac = virtualMachine.getMac();
         String ip = virtualMachine.getIp();
         Long physicalMachineId = virtualMachine.getPhysicalMachineId();
@@ -62,17 +69,31 @@ public class VirtualMachineController {
         return "VirtualMachine";
     }
 
-
-    @PostMapping("/VirtualMachine/PhysicalMachineId/Insert/{physicalMachineId}")
-    public String insert(Model model, VirtualMachine virtualMachine, @PathVariable Long physicalMachineId) {
+    /**
+     * 新增虚拟机
+     *
+     * @param model
+     * @param virtualMachine
+     * @return
+     */
+    @PostMapping("/VirtualMachine/Save")
+    public String insert(Model model, VirtualMachine virtualMachine) {
         virtualMachine.setMtime(LocalDate.now());
         virtualMachineRepository.save(virtualMachine);
+        Long physicalMachineId = virtualMachine.getPhysicalMachineId();
         model.addAttribute("virtualMachine", virtualMachineRepository.findByPhysicalMachineIdOrderById(physicalMachineId));
         model.addAttribute("physicalMachineId", physicalMachineId);
         return "VirtualMachine";
     }
 
-    @GetMapping("/VirtualMachine/PhysicalMachineId/Delete/{id}")
+    /**
+     * 以ID删除虚拟机
+     *
+     * @param model
+     * @param id
+     * @return
+     */
+    @GetMapping("/VirtualMachine/Delete/{id}")
     public String deleteById(Model model, @PathVariable Long id) {
         Long physicalMachineId = virtualMachineRepository.findById(id).get().getPhysicalMachineId();
         virtualMachineRepository.deleteById(id);
@@ -82,19 +103,34 @@ public class VirtualMachineController {
         return "VirtualMachine";
     }
 
-    @PostMapping("/VirtualMachine/PhysicalMachineId/Update/{id}")
-    public String updateById(Model model, @PathVariable Long id, VirtualMachine virtualMachine) {
+    /**
+     * 以ID更新虚拟机
+     *
+     * @param model
+     * @param id
+     * @param virtualMachine
+     * @return
+     */
+    @PostMapping("/VirtualMachine/Save/{id}")
+    public String saveById(Model model, @PathVariable Long id, VirtualMachine virtualMachine) {
         virtualMachine.setMtime(LocalDate.now());
         Long physicalMachineId = virtualMachine.getPhysicalMachineId();
         model.addAttribute("virtualMachine", virtualMachine = virtualMachineRepository.save(virtualMachine));
         if (!StringUtils.isEmpty(physicalMachineId)) {
             model.addAttribute("physicalMachine", physicalMachineRepository.findById(virtualMachine.getPhysicalMachineId()).get());
         }
-        model.addAttribute("inspection", inspectionController.getInspection(null, virtualMachine.getId()));
+        model.addAttribute("inspection", inspectionController.find(null, virtualMachine.getId()));
         return "VirtualMachineUpdate";
     }
 
-    @GetMapping("/VirtualMachine/PhysicalMachineId/Select/{id}")
+    /**
+     * 以ID查询虚拟机
+     *
+     * @param model
+     * @param id
+     * @return
+     */
+    @GetMapping("/VirtualMachine/Find/{id}")
     public String findById(Model model, @PathVariable Long id) {
         VirtualMachine virtualMachine = virtualMachineRepository.findById(id).get();
         model.addAttribute("virtualMachine", virtualMachine);
@@ -102,10 +138,17 @@ public class VirtualMachineController {
         if (!StringUtils.isEmpty(physicalMachineId)) {
             model.addAttribute("physicalMachine", physicalMachineRepository.findById(virtualMachine.getPhysicalMachineId()).get());
         }
-        model.addAttribute("inspection", inspectionController.getInspection(null, virtualMachine.getId()));
+        model.addAttribute("inspection", inspectionController.find(null, virtualMachine.getId()));
         return "VirtualMachineUpdate";
     }
 
+    /**
+     * 以物理机ID查询虚拟机
+     *
+     * @param model
+     * @param physicalMachineId
+     * @return
+     */
     @GetMapping("/VirtualMachine/PhysicalMachineId/{physicalMachineId}")
     public String findByPhysicalMachineId(Model model, @PathVariable Long physicalMachineId) {
         if (physicalMachineId == -1) {

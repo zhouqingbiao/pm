@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta data-th-replace="Templates :: meta">
+    <link data-th-replace="Templates :: link">
+    <title>InterfaceInformationUpdate</title>
+</head>
+<body>
+<nav class="container mt-1" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Slash</a></li>
+    </ol>
+</nav>
+<form class="container mt-1" align="center" method="post" data-th-if="${interfaceInformation}"
+      data-th-action="'/InterfaceInformation/Save/'+${interfaceInformation.id}">
+    <div class="form-row">
+        <div class="form-group col-md-10">
+            <label>接口URL</label>
+            <input type="text" class="form-control" placeholder="接口Url"
+                   name="interfaceUrl" data-th-value="${interfaceInformation.interfaceUrl}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>内网外网</label>
+            <select class="form-control" name="network">
+                <option data-th-selected="${interfaceInformation.network=='内网'}">内网</option>
+                <option data-th-selected="${interfaceInformation.network=='外网'}">外网</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-10">
+            <label>描述</label>
+            <input type="text" class="form-control" placeholder="描述" name="description"
+                   data-th-value="${interfaceInformation.description}">
+        </div>
+        <div class="form-group col-md-2">
+            <label>维护人员</label>
+            <input type="text" class="form-control" placeholder="维护人员" name="maintenancePersonnel"
+                   data-th-value="${interfaceInformation.maintenancePersonnel}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-10"></div>
+        <div class="form-group col-md-2">
+            <label>是否历史</label>
+            <select class="form-control" name="network">
+                <option data-th-selected="${interfaceInformation.history=='是'}">是</option>
+                <option data-th-selected="${interfaceInformation.history=='否'}">否</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">提交</button>
+</form>
+<script data-th-replace="Templates :: script"></script>
+</body>
+</html>

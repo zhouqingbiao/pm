@@ -19,6 +19,12 @@ public class UserController {
         return "User";
     }
 
+    /**
+     * 验证登录并添加至Session
+     * @param user
+     * @param httpSession
+     * @return
+     */
     @PostMapping("/User")
     public String login(User user, HttpSession httpSession) {
         String username = user.getUsername();

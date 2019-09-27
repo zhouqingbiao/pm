@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * 巡检记录类
+ */
 @Entity
 public class Inspection implements Serializable {
     private static final long serialVersionUID = 1L;

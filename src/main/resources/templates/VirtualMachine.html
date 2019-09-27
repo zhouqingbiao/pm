@@ -32,8 +32,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="container-fluid mt-1" align="center" method="post"
-                          data-th-action="'/VirtualMachine/PhysicalMachineId/Insert/'+${physicalMachineId}">
+                    <form class="container-fluid mt-1" align="center" method="post" action="/VirtualMachine/Save">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>COMPUTER NAME</label>
@@ -153,12 +152,11 @@
             <td data-th-text="${vm.operatingSystem}"></td>
             <td data-th-text="${vm.mtime}"></td>
             <td>
-                <a class="btn btn-danger btn-sm" data-th-href="'/VirtualMachine/PhysicalMachineId/Delete/'+${vm.id}"
-                   role="button" id="delete">删除</a>
+                <a class="btn btn-danger btn-sm" data-th-href="'/VirtualMachine/Delete/'+${vm.id}" role="button"
+                   id="delete">删除</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" data-th-href="'/VirtualMachine/PhysicalMachineId/Select/'+${vm.id}"
-                   role="button">修改</a>
+                <a class="btn btn-primary btn-sm" data-th-href="'/VirtualMachine/Find/'+${vm.id}" role="button">修改</a>
             </td>
         </tr>
         </tbody>
@@ -168,7 +166,7 @@
 <script language="javascript">
     $(document).ready(function () {
         $("#delete").click(function () {
-            if (window.confirm("确认删除？")) {
+            if (confirm("确认删除？")) {
                 return true;
             } else {
                 return false;

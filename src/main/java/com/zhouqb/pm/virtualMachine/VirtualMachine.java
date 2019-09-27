@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * 虚拟机类
+ */
 @Entity
 public class VirtualMachine implements Serializable {
     private static final long serialVersionUID = 1L;

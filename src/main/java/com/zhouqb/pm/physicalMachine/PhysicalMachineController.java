@@ -23,8 +23,15 @@ public class PhysicalMachineController {
     @Autowired
     private InspectionController inspectionController;
 
+    /**
+     * 查找物理机
+     *
+     * @param model
+     * @param physicalMachine
+     * @return
+     */
     @GetMapping("/PhysicalMachine")
-    public String findByMacLikeOrIpLikeOrderById(Model model, PhysicalMachine physicalMachine) {
+    public String find(Model model, PhysicalMachine physicalMachine) {
         String mac = physicalMachine.getMac();
         String ip = physicalMachine.getIp();
         if (StringUtils.isEmpty(mac) && StringUtils.isEmpty(ip)) {
@@ -45,14 +52,28 @@ public class PhysicalMachineController {
         return "PhysicalMachine";
     }
 
-    @PostMapping("/PhysicalMachine/Insert")
-    public String insert(Model model, PhysicalMachine physicalMachine) {
+    /**
+     * 新增物理机
+     *
+     * @param model
+     * @param physicalMachine
+     * @return
+     */
+    @PostMapping("/PhysicalMachine/Save")
+    public String save(Model model, PhysicalMachine physicalMachine) {
         physicalMachineRepository.save(physicalMachine);
-        Sort sort = new Sort(Sort.Direction.ASC, "ip");
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
         model.addAttribute("physicalMachine", physicalMachineRepository.findAll(sort));
         return "PhysicalMachine";
     }
 
+    /**
+     * 以ID删除物理机
+     *
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/PhysicalMachine/Delete/{id}")
     public String deleteById(Model model, @PathVariable Long id) {
         if (ObjectUtils.isEmpty(virtualMachineRepository.findByPhysicalMachineIdOrderById(id))) {
@@ -66,21 +87,35 @@ public class PhysicalMachineController {
         return "PhysicalMachine";
     }
 
-
-    @PostMapping("/PhysicalMachine/Update/{id}")
-    public String updateById(Model model, @PathVariable Long id, PhysicalMachine physicalMachine) {
+    /**
+     * 以ID更新物理机
+     *
+     * @param model
+     * @param id
+     * @param physicalMachine
+     * @return
+     */
+    @PostMapping("/PhysicalMachine/Save/{id}")
+    public String saveById(Model model, @PathVariable Long id, PhysicalMachine physicalMachine) {
         physicalMachine.setMtime(LocalDate.now());
         physicalMachine = physicalMachineRepository.save(physicalMachine);
         model.addAttribute("physicalMachine", physicalMachine);
-        model.addAttribute("inspection", inspectionController.getInspection(physicalMachine.getId(), null));
+        model.addAttribute("inspection", inspectionController.find(physicalMachine.getId(), null));
         return "PhysicalMachineUpdate";
     }
 
-    @GetMapping("/PhysicalMachine/Select/{id}")
+    /**
+     * 以ID查找物理机
+     *
+     * @param model
+     * @param id
+     * @return
+     */
+    @GetMapping("/PhysicalMachine/Find/{id}")
     public String findById(Model model, @PathVariable Long id) {
         PhysicalMachine physicalMachine = physicalMachineRepository.findById(id).get();
         model.addAttribute("physicalMachine", physicalMachine);
-        model.addAttribute("inspection", inspectionController.getInspection(physicalMachine.getId(), null));
+        model.addAttribute("inspection", inspectionController.find(physicalMachine.getId(), null));
         return "PhysicalMachineUpdate";
     }
 }

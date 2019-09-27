@@ -8,19 +8,21 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+/**
+ * 非200错误拦截
+ */
 @ControllerAdvice
 public class ErrorControllerAdvice implements ErrorViewResolver {
-
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("Status", status);
+        // 返回错误信息
+        modelAndView.addObject("status", status);
 
         modelAndView.setViewName("Status");
 
         return modelAndView;
-
     }
 }

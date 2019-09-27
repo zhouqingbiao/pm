@@ -21,6 +21,14 @@ public class InspectionController {
     @Autowired
     private VirtualMachineRepository virtualMachineRepository;
 
+    /**
+     * 以物理机ID新增巡检记录
+     *
+     * @param model
+     * @param inspection
+     * @param physicalMachineId
+     * @return
+     */
     @PostMapping("/saveInspectionByPhysicalMachineId/{physicalMachineId}")
     public String saveInspectionByPhysicalMachineId(Model model, Inspection inspection, @PathVariable Long physicalMachineId) {
         inspection = inspectionRepository.save(inspection);
@@ -30,6 +38,14 @@ public class InspectionController {
         return "PhysicalMachineUpdate";
     }
 
+    /**
+     * 以虚拟机ID新增巡检记录
+     *
+     * @param model
+     * @param inspection
+     * @param virtualMachineId
+     * @return
+     */
     @PostMapping("/saveInspectionByVirtualMachineId/{virtualMachineId}")
     public String saveInspectionByVirtualMachineId(Model model, Inspection inspection, @PathVariable Long virtualMachineId) {
         inspection = inspectionRepository.save(inspection);
@@ -43,7 +59,14 @@ public class InspectionController {
         return "PhysicalMachineUpdate";
     }
 
-    public Iterable<Inspection> getInspection(Long physicalMachineId, Long virtualMachineId) {
+    /**
+     * 以物理机ID或虚拟机ID查找巡检记录
+     *
+     * @param physicalMachineId
+     * @param virtualMachineId
+     * @return
+     */
+    public Iterable<Inspection> find(Long physicalMachineId, Long virtualMachineId) {
         if (!StringUtils.isEmpty(physicalMachineId) && StringUtils.isEmpty(virtualMachineId)) {
             return inspectionRepository.findByPhysicalMachineIdOrderByXjrq(physicalMachineId);
         } else if (StringUtils.isEmpty(physicalMachineId) && !StringUtils.isEmpty(virtualMachineId)) {
@@ -52,6 +75,13 @@ public class InspectionController {
         return null;
     }
 
+    /**
+     * 以ID删除巡检记录
+     *
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/Inspection/Delete/{id}")
     public String delete(Model model, @PathVariable Long id) {
         Long physicalMachineId = inspectionRepository.findById(id).get().getPhysicalMachineId();
