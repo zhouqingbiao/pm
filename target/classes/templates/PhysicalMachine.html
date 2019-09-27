@@ -29,7 +29,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="container-fluid mt-1" align="center" method="post" action="/PhysicalMachine/Insert">
+                    <form class="container-fluid mt-1" align="center" method="post" action="/PhysicalMachine/Save">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>COMPUTER NAME</label>
@@ -143,12 +143,11 @@
             <td data-th-text="${pm.operatingSystem}"></td>
             <td data-th-text="${pm.mtime}"></td>
             <td>
-                <a class="btn btn-danger btn-sm" data-th-href="'/PhysicalMachine/Delete/'+${pm.id}"
-                   role="button" id="delete">删除</a>
+                <a class="btn btn-danger btn-sm" data-th-href="'/PhysicalMachine/Delete/'+${pm.id}" role="button"
+                   id="delete">删除</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" data-th-href="'/PhysicalMachine/Select/'+${pm.id}"
-                   role="button">修改</a>
+                <a class="btn btn-primary btn-sm" data-th-href="'/PhysicalMachine/Find/'+${pm.id}" role="button">修改</a>
             </td>
         </tr>
         </tbody>
@@ -158,7 +157,7 @@
 <script language="javascript">
     $(document).ready(function () {
         $("#delete").click(function () {
-            if (window.confirm("确认删除？")) {
+            if (confirm("确认删除？")) {
                 return true;
             } else {
                 return false;

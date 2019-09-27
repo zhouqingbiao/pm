@@ -14,7 +14,7 @@
     </ol>
 </nav>
 <form class="container mt-1" align="center" method="post" data-th-if="${physicalMachine}"
-      data-th-action="'/PhysicalMachine/Update/'+${physicalMachine.id}">
+      data-th-action="'/PhysicalMachine/Save/'+${physicalMachine.id}">
     <div class="form-row">
         <div class="form-group col-md-3">
             <label>ID</label>
@@ -172,12 +172,10 @@
             <td data-th-text="${i.physicalMachineId}"></td>
             <td hidden data-th-text="${i.virtualMachineId}"></td>
             <td hidden>
-                <a class="btn btn-danger btn-sm" data-th-href="'/Inspection/Delete/'+${i.id}"
-                   role="button" id="delete">删除</a>
+                <a class="btn btn-danger btn-sm" data-th-href="'/Inspection/Delete/'+${i.id}" role="button" id="delete">删除</a>
             </td>
             <td hidden>
-                <a class="btn btn-primary btn-sm" data-th-href="'/Inspection/Select/'+${i.id}"
-                   role="button">修改</a>
+                <a class="btn btn-primary btn-sm" data-th-href="'/Inspection/Select/'+${i.id}" role="button">修改</a>
             </td>
         </tr>
         </tbody>

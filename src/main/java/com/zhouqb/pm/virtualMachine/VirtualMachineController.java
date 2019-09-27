@@ -50,8 +50,7 @@ public class VirtualMachineController {
             }
         } else {
             if (StringUtils.isEmpty(mac) && StringUtils.isEmpty(ip)) {
-                Sort sort = new Sort(Sort.Direction.ASC, "id");
-                model.addAttribute("virtualMachine", virtualMachineRepository.findAll(sort));
+                model.addAttribute("virtualMachine", virtualMachineRepository.findByPhysicalMachineIdOrderById(physicalMachineId));
             } else if (StringUtils.isEmpty(mac)) {
                 model.addAttribute("virtualMachine",
                         virtualMachineRepository.findByIpLikeAndPhysicalMachineIdOrderById("%" + ip + "%", physicalMachineId));
